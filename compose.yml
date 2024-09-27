@@ -1,0 +1,22 @@
+version: '3'
+services:
+ keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin_password
+      - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/conf/server.crt
+      - KC_HTTPS_CERTIFICATE_KEY_FILE=/opt/keycloak/conf/server.key
+    command:
+      - start
+      - --hostname-strict=false
+      - --https-certificate-file=/opt/keycloak/conf/server.crt
+      - --https-certificate-key-file=/opt/keycloak/conf/server.key
+      - --verbose
+    volumes:
+      - ./certs:/opt/keycloak/conf
+    ports:
+      - "8443:8443"
+
+volumes:
+  certs:
